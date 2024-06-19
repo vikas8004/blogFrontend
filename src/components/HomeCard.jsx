@@ -43,7 +43,7 @@ const HomeCard = ({ el, onClick }) => {
           </Heading>
           <Text
             noOfLines={2}
-            fontSize={"13px"}
+            fontSize={["13px","14px","15px","15px"]}
             fontWeight={"500"}
             dangerouslySetInnerHTML={{ __html: el.description }}
           />

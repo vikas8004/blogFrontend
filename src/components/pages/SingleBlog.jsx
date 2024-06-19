@@ -7,6 +7,7 @@ import formatDate from "../../utils/formatData";
 const SingleBlog = () => {
   const data = useLoaderData();
   
+  
 
   return (
     <Box mt={"65px"} width={["95%", "80%", "70%", "60%"]} mx={"auto"} pt={"40px"} pb={"20px"}>
@@ -19,7 +20,7 @@ const SingleBlog = () => {
             <Avatar src={data.post.author.img.secure_url} boxSize={"40px"} />
           </VStack>
           <VStack gap={"0px"} alignItems={"start"}>
-            <Text fontSize={"15px"} fontWeight={"500"}>
+            <Text fontSize={"17px"} fontWeight={"500"}>
               {capitalizeFirstLetters(data.post.author.fullName)}
             </Text>
             <Text fontSize={"14px"} textAlign={"left"} fontWeight={"500"}>

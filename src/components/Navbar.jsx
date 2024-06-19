@@ -27,7 +27,7 @@ import React from "react";
 import { CiSearch } from "react-icons/ci";
 import { FiEdit } from "react-icons/fi";
 import { IoIosNotificationsOutline } from "react-icons/io";
-import { Link as Hello, redirect } from "react-router-dom";
+import { Link as Hello, useNavigate } from "react-router-dom";
 import { Link } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -41,7 +41,7 @@ const Navbar = () => {
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const toast = useToast();
-
+  const navigate = useNavigate();
   // console.log(auth);
 
   const signOutHandler = async () => {
@@ -61,12 +61,15 @@ const Navbar = () => {
           duration: 3000,
           position: "top-right",
         });
+        navigate("/");
         dispatch(logout({}));
-        redirect("/");
       }
     } catch (error) {
       console.log(error);
     }
+  };
+  const profileHandler = async () => {
+    navigate(`/@${auth.user.email.slice(0, auth.user.email.length - 10)}`);
   };
   return (
     <Box
@@ -98,8 +101,8 @@ const Navbar = () => {
           >
             <Heading letterSpacing="-1.5px">
               <Text
-              fontWeight={"800"}
-              fontSize={"25px"}
+                fontWeight={"800"}
+                fontSize={"25px"}
                 // bgClip="text"
                 // color="transparent"
                 // sx={{
@@ -162,7 +165,11 @@ const Navbar = () => {
               />
             </MenuButton>
             <MenuList>
-              <MenuItem ml={"2px"} mb={0}>
+              <MenuItem
+                ml={"2px"}
+                mb={0}
+                display={["flex", "flex", "none", "none"]}
+              >
                 <Link
                   as={Hello}
                   _hover={{ textDecor: "none" }}
@@ -171,7 +178,7 @@ const Navbar = () => {
                   <Button
                     bgColor={"transparent"}
                     _hover={{ bg: "transparent" }}
-                    display={["flex", "flex", "none", "none"]}
+                    display={"flex"}
                     gap={"10px"}
                     px={0.5}
                   >
@@ -180,17 +187,16 @@ const Navbar = () => {
                   </Button>
                 </Link>
               </MenuItem>
-              <MenuItem icon={<CgProfile style={{ fontSize: "25px" }} />}>
+              <MenuItem
+                icon={<CgProfile style={{ fontSize: "25px" }} />}
+                onClick={() => profileHandler()}
+              >
                 Profile
               </MenuItem>
               <MenuItem icon={<VscLibrary style={{ fontSize: "25px" }} />}>
                 Library
               </MenuItem>
-              <MenuItem
-                icon={<AiOutlineProfile style={{ fontSize: "25px" }} />}
-              >
-                Stories
-              </MenuItem>
+
               <MenuItem
                 display={"flex"}
                 justifyContent={"start"}

@@ -51,9 +51,16 @@ export const LandingPage = () => {
               py={"15px"}
             >
               <Box>
-                <Heading as={"h2"} fontSize={"3xl"}>
-                  BlogJunction
-                </Heading>
+              <Heading letterSpacing="-1.5px">
+              <Text
+              fontWeight={"800"}
+              fontSize={"25px"}
+                
+                fontFamily={"sans-serif"}
+              >
+                BLOGWAVE
+              </Text>
+            </Heading>
               </Box>
               <HStack>
                 <Button
@@ -162,9 +169,16 @@ export const LandingPage = () => {
           py={"20px"}
           display={["flex", "flex", "flex", "none"]}
         >
-          <Heading color={"white"} as={"h2"} fontSize={"40px"}>
-            BlogJunction
-          </Heading>
+          <Heading letterSpacing="-1.5px">
+              <Text
+              fontWeight={"800"}
+              fontSize={"25px"}
+                textColor={"white"}
+                fontFamily={"sans-serif"}
+              >
+                BLOGWAVE
+              </Text>
+            </Heading>
           <HStack ml={"-15px"}>
             {["About", "Help", "Terms", "Privacy"].map((item, i) => (
               <Button

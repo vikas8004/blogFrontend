@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import "./App.css";
 
 import { LandingPage } from "./components/LandingPage";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from "./components/pages/Home";
-import Navbar from "./components/Navbar";
-import NewStory from "./components/pages/NewStory";
+const Home = lazy(() => import("./components/pages/Home"));
+const NewStory = lazy(() => import("./components/pages/NewStory"));
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { login } from "./features/authFeature";
@@ -13,9 +12,11 @@ axios.defaults.withCredentials = true;
 
 import { useSelector } from "react-redux";
 import { baseUrl } from "./utils/constants";
-import SingleBlog from "./components/pages/SingleBlog";
+const SingleBlog = lazy(() => import("./components/pages/SingleBlog"));
 import { singleBlogLoader } from "./utils/singleBlogLoader.js";
 import Layout from "./components/LayOut.jsx";
+import Loader from "./components/Loader.jsx";
+const Profile = lazy(() => import("./components/pages/Profile.jsx"));
 
 const authRouters = createBrowserRouter([
   {
@@ -25,6 +26,7 @@ const authRouters = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "/new-story", element: <NewStory /> },
       { path: "/blog/:id", element: <SingleBlog />, loader: singleBlogLoader },
+      { path: "/:name", element: <Profile /> },
     ],
   },
 ]);
@@ -52,7 +54,6 @@ function App() {
     <>
       {auth.isLoggedIn ? (
         <>
-         
           {/* <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/new-story" element={<NewStory />} />
@@ -62,7 +63,9 @@ function App() {
               loader={singleBlogLoader}
             />
           </Routes> */}
-          <RouterProvider router={authRouters}></RouterProvider>
+          <Suspense fallback={<Loader />}>
+            <RouterProvider router={authRouters}></RouterProvider>
+          </Suspense>
         </>
       ) : (
         // <Routes>
